@@ -2,10 +2,11 @@ require 'contracto/rspec/version'
 require 'contracto'
 
 module Contracto::RSpec
-  require_relative 'rspec/core'
 
   def self.start!(options)
+    require_relative 'rspec/core'
     Contracto::RSpec::Core.new(options)
   end
+
 end
 
