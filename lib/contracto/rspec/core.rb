@@ -1,10 +1,6 @@
+require 'fileutils'
+
 class Contracto::RSpec::Core
-
-  require_relative 'server_terminator'
-
-  CONTRACTO_RSPEC_MODULES = [
-    Contracto::RSpec::ServerTerminator
-  ]
 
   def initialize(options)
     @url = options.fetch(:url)
@@ -23,11 +19,8 @@ class Contracto::RSpec::Core
   end
 
   def add_modules_to_rspec
-    RSpec.configure do |config|
-      CONTRACTO_RSPEC_MODULES.each do |mod|
-        config.include mod
-      end
-    end
+    require_relative 'server_terminator'
+    require_relative 'json_helper'
   end
 
 end
