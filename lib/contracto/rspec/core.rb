@@ -3,7 +3,7 @@ require 'fileutils'
 class Contracto::RSpec::Core
 
   def initialize(options)
-    @url = options.fetch(:url)
+    @git_url = options.fetch(:git)
     start!
   end
 
@@ -15,7 +15,7 @@ class Contracto::RSpec::Core
   end
 
   def start_server
-    Contracto::Command.run('start', [@url])
+    Contracto::Command.run('start', [@git_url])
   end
 
   def add_modules_to_rspec

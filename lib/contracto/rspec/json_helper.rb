@@ -2,9 +2,54 @@ require 'httparty'
 
 module Contracto::RSpec::JsonHelper
 
-  def compare_with_contract!
-    req = Contracto::RSpec::JsonHelper::ContractRequest.new(request)
-    expect(JSON.parse(response.body)).to eq(req.body)
+  def compare_json_with_contract!(options = {})
+    @contracto_rspec_options = options
+    expected_json = contract_response.to_json
+    given_json = api_response.to_json
+    
+    expect(given_json).to eq(expected_json)
+  end
+
+  def api_response
+    Response.new(response.body, @contracto_rspec_options)
+  end
+
+  def contract_response
+    Response.new(
+      Contracto::RSpec::JsonHelper::ContractRequest.new(request).body,
+      @contracto_rspec_options
+    )
+  end
+
+  class Response
+    def initialize(body, options = {})
+      @body = body
+      @options = options
+    end
+
+    def to_json
+      JSON.parse(@body).tap do |json|
+        @json = json
+        parse_json_with_options
+      end
+      @json
+    end
+    
+    def parse_json_with_options
+      if @options[:ignore]
+        if @json.is_a?(Array)
+          @json.each do |json|
+            @options[:ignore].each do |key|
+              json.delete(key.to_s)
+            end
+          end
+        else
+          @options[:ignore].each do |key|
+            @json.delete(key.to_s)
+          end
+        end
+      end
+    end
   end
 
   class ContractRequest
