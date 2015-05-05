@@ -8,6 +8,10 @@ Add this line to your application's Gemfile:
 gem 'contracto-rspec'
 ```
 
+And then execute:
+
+    $ bundle
+
 ## Usage
 
 - Add following lines in your `rails_helper.rb`:
@@ -16,6 +20,7 @@ require 'contracto/rspec'
 Contracto::RSpec.start!(git: 'https://github.com/{github_user}/{contract_repository_name}.git')
 ```
 
+<br>
 - Test your API request by comparing its responses to contract responses:
 
 ```ruby
