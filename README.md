@@ -1,5 +1,7 @@
 # Contracto/RSpec
 
+![EL Passion](https://avatars.githubusercontent.com/u/98255?v=3&s=16) Sponsored by [EL Passion](http://www.elpassion.com/)
+
 ## Installation
 
 Add this line to your application's Gemfile:
