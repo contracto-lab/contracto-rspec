@@ -17,7 +17,11 @@ And then execute:
 - Add following lines in your `rails_helper.rb`:
 ```ruby
 require 'contracto/rspec'
-Contracto::RSpec.start!(git: 'https://github.com/{github_user}/{contract_repository_name}.git')
+
+RSpec.configure do |config|
+  Contracto::RSpec.start!(git: 'https://github.com/{github_user}/{contract_repository_name}.git')
+  #...
+end
 ```
 
 <br>
