@@ -1,6 +1,6 @@
 # Contracto/RSpec
 
-Supported by [![EL Passion](https://img.shields.io/badge/EL-Passion-36b452.svg)](https://github.com/elpassion) :)
+[![EL Passion](https://img.shields.io/badge/Supported%20by-EL%20Passion-36b452.svg)](https://github.com/elpassion)
 
 ## Installation
 
