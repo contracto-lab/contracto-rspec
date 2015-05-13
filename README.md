@@ -1,8 +1,6 @@
-# Contracto::Rspec
+# Contracto/RSpec
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/contracto/rspec`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+[![EL Passion](https://img.shields.io/badge/Supported%20by-EL%20Passion-36b452.svg)](https://github.com/elpassion)
 
 ## Installation
 
@@ -16,19 +14,41 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install contracto-rspec
-
 ## Usage
 
-TODO: Write usage instructions here
+- Add following lines in your `rails_helper.rb`:
+```ruby
+require 'contracto/rspec'
 
-## Development
+RSpec.configure do |config|
+  Contracto::RSpec.start!(git: 'https://github.com/{github_user}/{contract_repository_name}.git')
+  #...
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+<br>
+- Test your API request by comparing its responses to contract responses:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+require 'rails_helper'
+
+RSpec.describe 'Users', type: :request do
+  describe 'GET /users' do
+    it do
+      get users_path
+      compare_json_with_contract!(ignore: [:id])
+    end
+  end
+
+  describe 'GET /users/:id' do
+    it do
+      get user_path(User.first)
+      compare_json_with_contract!(ignore: [:created_at, :updated_at])
+    end
+  end
+end
+```
+
 
 ## Contributing
 
