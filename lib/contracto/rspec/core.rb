@@ -2,9 +2,8 @@ require 'fileutils'
 
 class Contracto::RSpec::Core
 
-  def initialize(options)
+  def initialize(options = {})
     @git_url = options[:git]
-    @root_dir = options[:path]
     start!
   end
 
@@ -16,12 +15,9 @@ class Contracto::RSpec::Core
   end
 
   def start_server
-    if @root_dir
-      Contracto::Config.root_dir = @root_dir
-      Contracto::Command.run('start', [])
-    elsif @git_url
-      Contracto::Command.run('start', [@git_url])
-    end
+    args = []
+    args << @git_url if @git_url
+    Contracto::Command.run('start', args)
   end
 
   def add_modules_to_rspec
